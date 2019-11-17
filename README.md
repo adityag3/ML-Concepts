@@ -105,3 +105,53 @@ for i in range(pca.explained_variance_ratio_.shape[0]):
     df["pc%i" % (i+1)] = data[:,i]
 df.head()
 ```
+
+## ML Algos along with Hyperparameter Tuning
+
+Logistic Regression
+```
+from sklearn import linear_model, datasets
+from sklearn.model_selection import GridSearchCV
+
+logistic = linear_model.LogisticRegression(multi_class='multinomial')
+
+# Create regularization penalty space
+penalty = ['l1', 'l2']]
+C = np.logspace(0, 4, 10)
+hyperparameters = dict(C=C, penalty=penalty)
+
+clf = GridSearchCV(logistic, hyperparameters, cv=5, verbose=0)
+
+best_model = clf.fit(X, y)
+
+# View best hyperparameters
+print('Best Penalty:', best_model.best_estimator_.get_params()['penalty'])
+print('Best C:', best_model.best_estimator_.get_params()['C'])
+
+pred = best_model.predict(test)
+accuracy_score(test_y,pred)
+```
+
+Decision Tree Classifier
+```
+from sklearn.tree import DecisionTreeClassifier
+clf = clf.fit(X, Y)
+
+
+```
+
+Accuracy Score
+```
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_recall_fscore_support
+
+accuracy_score(test_y,pred)
+p, r, f, _ = precision_recall_fscore_support(y_test, y_pred, average !=/='binary')
+
+```
+
+
+GridSearchCV
+```
+from sklearn.model_selection import GridSearchCV
+```
