@@ -135,9 +135,28 @@ accuracy_score(test_y,pred)
 Decision Tree Classifier
 ```
 from sklearn.tree import DecisionTreeClassifier
-clf = clf.fit(X, Y)
+parameters={'min_samples_split' : range(10,500,20),'max_depth': range(1,20,2)}
+clf_tree=tree.DecisionTreeClassifier()
+clf=grid_search.GridSearchCV(clf_tree,parameters)
+clf.fit(X,Y)
 
+pred = best_model.predict(test)
+accuracy_score(test_y,pred)
+```
 
+Random Forest
+```
+from sklearn.ensemble import RandomForestClassifier
+n_estimator = [1,2,5,10,10,50,100]
+max_depth = [1,2,3,5,10]
+parameters = {'n_estimator':n_estimator,'max_depth':max_depth}
+clf_rf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
+clf=grid_search.GridSearchCV(clf_rf,parameters)
+
+clf.fit(X,Y)
+
+pred = best_model.predict(test)
+accuracy_score(test_y,pred)
 ```
 
 Accuracy Score
@@ -155,3 +174,4 @@ GridSearchCV
 ```
 from sklearn.model_selection import GridSearchCV
 ```
+
