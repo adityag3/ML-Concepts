@@ -53,3 +53,55 @@ Delete missing values
 ```
 df.dropna(inplace=True)
 ```
+
+Encode Categorical Data
+```
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder # used for encoding categorical data
+
+labelencoder_X = LabelEncoder()
+X[:, 0] = labelencoder_X.fit_transform(X[:, 0])
+```
+```
+cat_df_flights_lc['carrier'] = cat_df_flights_lc['carrier'].cat.codes
+```
+
+One Hot Encode Categorical Data
+```
+onehotencoder = OneHotEncoder(categorical_features=[0])
+X = onehotencoder.fit_transform(X).toarray()
+```
+
+Splitting Data
+```
+from sklearn.model_selection import train_test_split # used for splitting training and testing data
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0, stratify=y)
+```
+
+Scaling 
+```
+from sklearn.preprocessing import StandardScaler
+
+sc_X = StandardScaler()
+df = sc_X.fit_transform(df)
+```
+
+PCA
+```
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import MinMaxScaler
+import matplotlib.pyplot as plt
+
+pca = PCA().fit(data_rescaled)
+
+plt.figure()
+plt.plot(np.cumsum(pca.explained_variance_ratio_))
+plt.xlabel('Number of Components')
+plt.ylabel('Variance (%)') #for each component
+plt.title('Pulsar Dataset Explained Variance')
+plt.show()
+
+df=pd.DataFrame()
+for i in range(pca.explained_variance_ratio_.shape[0]):
+    df["pc%i" % (i+1)] = data[:,i]
+df.head()
+```
